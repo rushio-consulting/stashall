@@ -5,5 +5,7 @@
       "--proto_path=${workspaceRoot}/proto/services",
       "--proto_path=${workspaceRoot}/third_party",
     ]
-  }
+  },
+  "git.autoRepositoryDetection": false,
+  "git.detectSubmodules": false
 }

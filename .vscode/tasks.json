@@ -15,6 +15,48 @@
         "google/protobuf/empty.proto",
         "services/authentication_service.proto"
       ],
+    },
+    {
+      "label": "git submodule init",
+      "dependsOn": [
+        "git submodule sync",
+        "git submodule update"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "git submodule sync",
+      "type": "shell",
+      "command": "git",
+      "args": [
+        "submodule",
+        "sync",
+        "--recursive"
+      ]
+    },
+    {
+      "label": "git submodule update",
+      "type": "shell",
+      "command": "git",
+      "args": [
+        "submodule",
+        "update",
+        "--init",
+        "--recursive"
+      ]
+    },
+    {
+      "label": "git submodule update",
+      "type": "shell",
+      "command": "git",
+      "args": [
+        "submodule",
+        "foreach",
+        "git",
+        "pull",
+        "origin",
+        "master"
+      ]
     }
   ]
 }
