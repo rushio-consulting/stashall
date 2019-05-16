@@ -17,4 +17,9 @@ service AuthenticationService {
   /// The client must send in the metadata the Authorization key with the token
   /// in the value
   rpc signout(google.protobuf.Empty) returns (google.protobuf.Empty);
+
+  /// If the user is logged return Empty else throw GrpcError.unauthenticated
+  /// The client must send in the metadata the Authorization key with the token
+  /// in the value
+  rpc isLogged(google.protobuf.Empty) returns (google.protobuf.Empty);
 }
