@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package stashall;
+
+import "google/protobuf/empty.proto";
+import "models/tag.proto";
+
+message CreateTagRequest {
+  string label = 1;
+  string color = 2;
+}
+
+message DeleteTagRequest { string id = 1; }
+
+service TagsService {
+  /// The client must send the Authorization metadata
+  rpc createTag(CreateTagRequest) returns (Tag);
+
+  /// The client must send the Authorization metadata
+  rpc editTag(Tag) returns (google.protobuf.Empty);
+
+  /// The client must send the Authorization metadata
+  rpc deleteTag(DeleteTagRequest) returns (google.protobuf.Empty);
+}
