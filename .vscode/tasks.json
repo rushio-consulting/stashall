@@ -18,32 +18,8 @@
     },
     {
       "label": "git submodule init",
-      "dependsOn": [
-        "git submodule sync",
-        "git submodule update"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "git submodule sync",
       "type": "shell",
-      "command": "git",
-      "args": [
-        "submodule",
-        "sync",
-        "--recursive"
-      ]
-    },
-    {
-      "label": "git submodule update",
-      "type": "shell",
-      "command": "git",
-      "args": [
-        "submodule",
-        "update",
-        "--init",
-        "--recursive"
-      ]
+      "command": "tools/git_submodule_init.sh",
     },
     {
       "label": "git submodule update",
@@ -57,6 +33,24 @@
         "origin",
         "master"
       ]
+    },
+    {
+      "label": "run authentication_service test",
+      "type": "shell",
+      "command": "pub run test",
+      "group": "test",
+      "options": {
+        "cwd": "${workspaceFolder}/services/authentication_service/"
+      }
+    },
+    {
+      "label": "run app test",
+      "type": "shell",
+      "group": "test",
+      "command": "flutter test",
+      "options": {
+        "cwd": "${workspaceFolder}/app",
+      }
     }
   ]
 }
