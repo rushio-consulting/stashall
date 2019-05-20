@@ -1,0 +1,13 @@
+container:
+  image: cirrusci/flutter:latest
+
+prepare_task:
+  pub_cache:
+    folder: ~/.pub-cache
+  prepare_script: ./ci/ci.sh --prepare
+
+docker_builder:
+  name: Linux
+  build_script: ./ci/ci.sh --coverage
+  depends_on: 
+    - prepare
