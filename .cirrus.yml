@@ -4,10 +4,10 @@ container:
 prepare_task:
   pub_cache:
     folder: ~/.pub-cache
-  prepare_script: ./ci/ci.sh --prepare
+  prepare_script: /bin/bash /ci/ci.sh --prepare
 
 docker_builder:
   name: Linux
-  build_script: ./ci/ci.sh --coverage
+  build_script: /bin/bash /ci/ci.sh --coverage
   depends_on: 
     - prepare
