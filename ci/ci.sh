@@ -1,13 +1,35 @@
 #!/usr/bin/env bash
 
-_run_coverage_service() {
-    local path
-    path=$1
+BASEDIR=$(dirname "$0")
+source "$BASEDIR"/logger.sh
 
-    docker run --rm \
+PROJECTS=(
+    "app"
+    "common/generated_io"
+    "services/authentication_service"
+    )
+
+_run_prepare() {
+    for path in "${PROJECTS[@]}"; do
+        print_title "prepare for $path"
+        cd $path && flutter packages get
+    done
+}
+
+#########################
+###### COVERAGE ########
+#######################
+_run_coverage_service() {
+
+    for path in "${PROJECTS[@]}"; do
+        print_title "coverage for $path"
+        docker run --rm \
         -v $path:/app \
         rushioconsulting/coverage_service
+    done
+
 }
+
 
 #  _ __ ___   __ _(_)_ __
 # | '_ ` _ \ / _` | | '_ \
@@ -19,8 +41,11 @@ while getopts :-:h option; do
     case $option in
     -)
         case $OPTARG in
-        compil)
-            _build_in_docker
+        prepare)
+            _run_prepare
+            ;;
+        coverage)
+            _run_coverage_service
             ;;
         *)
             print_error "Le paramètre '--$OPTARG' n'est pas reconnu !"
@@ -29,7 +54,7 @@ while getopts :-:h option; do
             ;;
         esac
         ;;
-    : | ? | h)
+    :|?| h)
         [[ $option == \? ]] && print_error "L'option -$OPTARG n'est pas prise en charge !"
         [[ $option == : ]] && print_error "L'option -$OPTARG requiert un argument !"
         usage
