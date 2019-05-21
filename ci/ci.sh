@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-BASEDIR=$(dirname "$0")
-source "$BASEDIR"/logger.sh
+readonly BASEDIR=$( cd $( dirname $0 ) && pwd )
+readonly PROJECT_HOME="$BASEDIR/.."
+source $BASEDIR/common.sh
 
 PROJECTS=(
-    "app"
-    "common/generated_io"
-    "services/authentication_service"
+    "$PROJECT_HOME/app"
+    "$PROJECT_HOME/common/generated_io"
+    "$PROJECT_HOME/services/authentication_service"
     )
 
 _run_prepare() {
@@ -23,8 +24,9 @@ _run_coverage_service() {
 
     for path in "${PROJECTS[@]}"; do
         print_title "coverage for $path"
+        cd $path
         docker run --rm \
-        -v $path:/app \
+        -v "$PWD":/app \
         rushioconsulting/coverage_service
     done
 
