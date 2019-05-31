@@ -1,25 +1,81 @@
-import 'package:flutter/material.dart';
-import 'package:stashall/src/views/home.dart';
+import 'dart:io';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:rc_router/rc_router.dart';
+import 'package:stashall/src/routes/loading_route.dart';
+import 'package:stashall/src/routes/password_detail_route.dart';
+import 'package:stashall/src/routes/passwords_route.dart';
+import 'package:stashall/src/views/loading/loading.dart';
+
+class StashallApp extends StatefulWidget {
+  @override
+  _StashallAppState createState() => _StashallAppState();
+}
+
+class _StashallAppState extends State<StashallApp> {
+  RcRoutes rcRoutes;
+  final title = 'Stashall';
+
+  @override
+  void initState() {
+    super.initState();
+    rcRoutes = RcRoutes(
+      routes: [
+        LoadingRoute(),
+        PasswordsRoute(),
+        PasswordDetailRoute(),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (Platform.isIOS || Platform.isMacOS) {
+      return CupertinoStashallApp(
+        title: title,
+        rcRoutes: rcRoutes,
+      );
+    }
+    return MaterialStashallApp(
+      title: title,
+      rcRoutes: rcRoutes,
+    );
+  }
+}
+
+class MaterialStashallApp extends StatelessWidget {
+  final RcRoutes rcRoutes;
+  final String title;
+
+  MaterialStashallApp({@required this.rcRoutes, @required this.title});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: title,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: LoadingView(),
+      onGenerateRoute: rcRoutes.onGeneratedRoute,
+    );
+  }
+}
+
+class CupertinoStashallApp extends StatelessWidget {
+  final RcRoutes rcRoutes;
+  final String title;
+
+  CupertinoStashallApp({@required this.rcRoutes, @required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoApp(
+      title: title,
+      home: LoadingView(),
+      onGenerateRoute: rcRoutes.onGeneratedRoute,
     );
   }
 }

@@ -12,5 +12,5 @@ import 'package:stashall/src/app.dart';
 
 Future<void> main() async {
   await ui.webOnlyInitializePlatform(); // ignore: undefined_function
-  runApp(MyApp());
+  runApp(StashallApp());
 }

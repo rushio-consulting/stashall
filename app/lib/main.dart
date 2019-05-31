@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 import 'package:stashall/src/app.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(StashallApp());

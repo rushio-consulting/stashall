@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
+  rc_router:
+    git: https://github.com/rushio-consulting/rc_router.git
   generated_io:
     path: ../common/generated_io/
 
