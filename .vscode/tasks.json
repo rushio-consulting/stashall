@@ -13,7 +13,12 @@
         "-Ithird_party/protobuf/src",
         "-Ithird_party/googleapis",
         "google/protobuf/empty.proto",
-        "services/authentication_service.proto"
+        "models/tag.proto",
+        "models/password.proto",
+        "services/authentication_service.proto",
+        "services/accounts_service.proto",
+        "services/passwords_service.proto",
+        "services/tags_service.proto",
       ],
     },
     {
