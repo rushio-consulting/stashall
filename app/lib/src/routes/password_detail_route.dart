@@ -1,6 +1,6 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:rc_router/rc_router.dart';
-import 'package:stashall/src/views/password_detail/password_detail.dart';
+import 'package:stashall/src/views/passwords/password_detail/password_detail.dart';
 
 class PasswordDetailRoute extends RcRoute {
   static String routePath = '/passwords/:id';

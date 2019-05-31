@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:stashall/src/views/password_detail/material_password_detail.dart';
+import 'package:stashall/src/views/passwords/password_detail/material.dart';
+import 'package:stashall/src/widgets/auto_switch_platform_widget.dart';
 
 class PasswordDetailView extends StatefulWidget {
   @override
@@ -9,6 +10,9 @@ class PasswordDetailView extends StatefulWidget {
 class _PasswordDetailViewState extends State<PasswordDetailView> {
   @override
   Widget build(BuildContext context) {
-    return MaterialPasswordDetail();
+    return AutoSwitchPlatform(
+      cupertino: Container(),
+      material: MaterialPasswordDetail(),
+    );
   }
 }
