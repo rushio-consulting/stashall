@@ -1,13 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rc_router/rc_router.dart';
+import 'package:stashall/src/cupertino.dart';
+import 'package:stashall/src/material.dart';
 import 'package:stashall/src/routes/loading_route.dart';
 import 'package:stashall/src/routes/password_detail_route.dart';
 import 'package:stashall/src/routes/passwords_route.dart';
-import 'package:stashall/src/views/loading/loading.dart';
+import 'package:stashall/src/widgets/auto_switch_platform_widget.dart';
 
 class StashallApp extends StatefulWidget {
   @override
@@ -32,50 +31,15 @@ class _StashallAppState extends State<StashallApp> {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isIOS || Platform.isMacOS) {
-      return CupertinoStashallApp(
+    return AutoSwitchPlatform(
+      cupertino: CupertinoStashallApp(
         title: title,
         rcRoutes: rcRoutes,
-      );
-    }
-    return MaterialStashallApp(
-      title: title,
-      rcRoutes: rcRoutes,
-    );
-  }
-}
-
-class MaterialStashallApp extends StatelessWidget {
-  final RcRoutes rcRoutes;
-  final String title;
-
-  MaterialStashallApp({@required this.rcRoutes, @required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: title,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
       ),
-      home: LoadingView(),
-      onGenerateRoute: rcRoutes.onGeneratedRoute,
-    );
-  }
-}
-
-class CupertinoStashallApp extends StatelessWidget {
-  final RcRoutes rcRoutes;
-  final String title;
-
-  CupertinoStashallApp({@required this.rcRoutes, @required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: title,
-      home: LoadingView(),
-      onGenerateRoute: rcRoutes.onGeneratedRoute,
+      material: MaterialStashallApp(
+        title: title,
+        rcRoutes: rcRoutes,
+      ),
     );
   }
 }
