@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:rc_router/rc_router.dart';
-import 'package:stashall/src/providers/channel.dart';
 import 'package:stashall/src/providers/client.dart';
+import 'package:stashall/src/providers/server.dart';
 import 'package:stashall/src/providers/store.dart';
 import 'package:stashall/src/routes/loading_route.dart';
 import 'package:stashall/src/routes/password_detail_route.dart';
 import 'package:stashall/src/routes/passwords_route.dart';
 import 'package:stashall/src/routes/signin_route.dart';
-import 'package:stashall/src/stores/server.dart';
 import 'package:stashall/src/stores/user.dart';
 import 'package:stashall/src/views/loading/loading.dart';
 
@@ -22,7 +20,6 @@ class StashallApp extends StatefulWidget {
 class _StashallAppState extends State<StashallApp> {
   final title = 'Stashall';
   RcRoutes rcRoutes;
-  ServerStore serverStore;
 
   @override
   void initState() {
@@ -35,26 +32,19 @@ class _StashallAppState extends State<StashallApp> {
         PasswordDetailRoute(),
       ],
     );
-    serverStore = ServerStore();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (c) {
-        return ChannelProvider(
-          host: serverStore.host,
-          port: serverStore.port,
-          child: ClientProvider(
-            child: StoreProvider(
-              child: App(
-                title: title,
-                rcRoutes: rcRoutes,
-              ),
-            ),
+    return ServerProvider(
+      child: ClientProvider(
+        child: StoreProvider(
+          child: App(
+            title: title,
+            rcRoutes: rcRoutes,
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

@@ -38,4 +38,19 @@ mixin _$ServerStore on ServerStoreBase, Store {
     super.port = value;
     _$portAtom.reportChanged();
   }
+
+  final _$channelAtom = Atom(name: 'ServerStoreBase.channel');
+
+  @override
+  ClientChannel get channel {
+    _$channelAtom.reportObserved();
+    return super.channel;
+  }
+
+  @override
+  set channel(ClientChannel value) {
+    _$channelAtom.context.checkIfStateModificationsAreAllowed(_$channelAtom);
+    super.channel = value;
+    _$channelAtom.reportChanged();
+  }
 }

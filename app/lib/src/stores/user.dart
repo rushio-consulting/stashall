@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:generated_io/generated_io.dart';
 import 'package:grpc/grpc.dart';
