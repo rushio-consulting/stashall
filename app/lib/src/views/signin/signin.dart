@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SigninView extends StatefulWidget {
@@ -8,6 +9,10 @@ class SigninView extends StatefulWidget {
 class _SigninViewState extends State<SigninView> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Center(
+        child: Text('Signin'),
+      ),
+    );
   }
 }
