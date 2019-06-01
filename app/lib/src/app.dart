@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rc_router/rc_router.dart';
-import 'package:stashall/src/cupertino.dart';
-import 'package:stashall/src/material.dart';
+import 'package:stashall/src/providers/store.dart';
 import 'package:stashall/src/routes/loading_route.dart';
 import 'package:stashall/src/routes/password_detail_route.dart';
 import 'package:stashall/src/routes/passwords_route.dart';
-import 'package:stashall/src/widgets/auto_switch_platform_widget.dart';
+import 'package:stashall/src/views/loading/loading.dart';
 
 class StashallApp extends StatefulWidget {
   @override
@@ -14,8 +13,8 @@ class StashallApp extends StatefulWidget {
 }
 
 class _StashallAppState extends State<StashallApp> {
-  RcRoutes rcRoutes;
   final title = 'Stashall';
+  RcRoutes rcRoutes;
 
   @override
   void initState() {
@@ -31,14 +30,14 @@ class _StashallAppState extends State<StashallApp> {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSwitchPlatform(
-      cupertino: CupertinoStashallApp(
+    return StoreProvider(
+      child: MaterialApp(
         title: title,
-        rcRoutes: rcRoutes,
-      ),
-      material: MaterialStashallApp(
-        title: title,
-        rcRoutes: rcRoutes,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: LoadingView(),
+        onGenerateRoute: rcRoutes.onGeneratedRoute,
       ),
     );
   }

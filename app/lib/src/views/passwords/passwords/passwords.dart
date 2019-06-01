@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:stashall/src/views/passwords/passwords/cupertino.dart';
-import 'package:stashall/src/views/passwords/passwords/material.dart';
-import 'package:stashall/src/widgets/auto_switch_platform_widget.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import 'package:stashall/src/stores/password.dart';
 import 'package:stashall/src/widgets/password.dart';
 
 class PasswordsView extends StatefulWidget {
@@ -12,15 +13,31 @@ class PasswordsView extends StatefulWidget {
 class _PasswordsViewState extends State<PasswordsView> {
   @override
   Widget build(BuildContext context) {
-    return AutoSwitchPlatform(
-      cupertino: CupertinoPasswords(),
-      material: MaterialPasswords(
-        children: <Widget>[
-          Password(
-            url: 'google.fr',
-            description: 'Google password for rushio',
-          ),
-        ],
+    final passwordsStore = Provider.of<PasswordsStore>(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Passwords'),
+      ),
+      body: Observer(
+        builder: (c) {
+          if (passwordsStore.passwords.isEmpty) {
+            return Center(
+              child: Text('No password yet create one !'),
+            );
+          }
+          return ListView(
+            padding: EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 16,
+            ),
+            children: passwordsStore.passwords
+                .map((p) => PasswordWidget(
+                      url: p.url,
+                      description: p.description,
+                    ))
+                .toList(),
+          );
+        },
       ),
     );
   }

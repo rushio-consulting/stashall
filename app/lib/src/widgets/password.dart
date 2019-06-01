@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 
-class Password extends StatelessWidget {
+class PasswordWidget extends StatelessWidget {
   final String url;
   final String description;
 
-  Password({@required this.url, this.description});
+  PasswordWidget({@required this.url, this.description});
 
   @override
   Widget build(BuildContext context) {
